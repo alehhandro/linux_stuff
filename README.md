@@ -1,2 +1,2 @@
-# linux_stuff
-Linux bits and pieces
+# Various Linux tips, tricks and scripts
+
