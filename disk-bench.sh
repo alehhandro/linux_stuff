@@ -9,6 +9,7 @@ REPORT_FILE=fio_report_`date +"%m-%d-%Y"`.txt
 
 ### HELPER FUNCTIONS
 ##
+touch ${REPORT_FILE} 
 
 ### FUNCTIONS
 ##
@@ -42,8 +43,9 @@ fio_install(){
 }
 
 fio_random_r(){
-  echo "Random read operation"
-  echo ""
+  echo -e "Random read >>>\n"
+  echo -e "\nRandom read operation\n" >> ${REPORT_FILE}
+
   fio --randrepeat=1\
 	  --ioengine=libaio\
 	  --direct=1\
@@ -53,14 +55,14 @@ fio_random_r(){
 	  --bs=4k\
 	  --iodepth=64\
 	  --size=40M\
-	  --readwrite=randread > ${REPORT_FILE}
+	  --readwrite=randread >> ${REPORT_FILE}
   printf '=%.0s' {1..30} >> ${REPORT_FILE}
   rm -rf blk-tst
 }
 
 fio_random_w(){
-  echo "Random write operation"
-  echo ""  
+  echo -e "Random write >>> \n"
+  echo -e "\nRandom write operation\n" >> ${REPORT_FILE}  
   fio --randrepeat=1\
 	  --ioengine=libaio\
 	  --direct=1\
@@ -75,8 +77,8 @@ fio_random_w(){
 }
 
 fio_random_rw(){
-  echo "Random read-write operations / mixed"
-  echo ""
+  echo -e "Random read-write\n"
+  echo -e "\nRandom read and write operations (mixed)\n" >> ${REPORT_FILE}
   fio --randrepeat=1\
 	  --ioengine=libaio\
 	  --direct=1\
